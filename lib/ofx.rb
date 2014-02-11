@@ -35,7 +35,9 @@ module OFX
                  ]
       @transactions = []
       self.dtserver = Time.now
-      yield self
+      if block_given?
+        yield self
+      end
     end
 
     def bal_amt=(amt)
@@ -90,8 +92,12 @@ module OFX
                   xml.ACCTTYPE self.acct_type
                 }
                 xml.BANKTRANLIST {
-                  xml.DTSTART format_date(self.dtstart)
-                  xml.DTEND format_date(self.dtend)
+                  if self.dtstart
+                    xml.DTSTART format_date(self.dtstart)
+                  end
+                  if self.dtend
+                    xml.DTEND format_date(self.dtend)
+                  end
                   self.transactions.each do |transaction|
                     xml.STMTTRN {
                       xml.TRNTYPE format_trntype(transaction.trnamt)
@@ -104,8 +110,12 @@ module OFX
                   end
                 }
                 xml.LEDGERBAL {
-                  xml.BALAMT format_balance(self.bal_amt)
-                  xml.DTASOF format_date(self.dtasof)
+                  if self.bal_amt
+                    xml.BALAMT format_balance(self.bal_amt)
+                  end
+                  if self.dtasof
+                    xml.DTASOF format_date(self.dtasof)
+                  end
                 }
               }
             }
