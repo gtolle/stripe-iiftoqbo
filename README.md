@@ -83,7 +83,7 @@ If you want to merge descriptions from a 'payments' file (-p) into the 'memo' fi
 
 Run the app again with ```-p payments.csv```.
 
-If you want to inspect your .iif file in CSV format (using Excel, for example), give the '-c' flag. It'll dump CSV instead of QBO.
+If you want to inspect the transactions from your .IIF file in CSV format (using Excel, for example), give the '-c' flag. It'll dump CSV instead of QBO.
 
 ## License
 
