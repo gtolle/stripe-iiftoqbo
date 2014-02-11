@@ -6,5 +6,9 @@ module OFX
     attr_accessor :fitid
     attr_accessor :name
     attr_accessor :memo
+
+    def trnamt=(amt)
+      @trnamt = BigDecimal.new(amt)
+    end
   end
 end

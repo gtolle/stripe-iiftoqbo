@@ -145,7 +145,7 @@ IIF(iif_file) do |iif|
       ofx.acct_type = "CHECKING"
       ofx.dtstart = min_date
       ofx.dtend = max_date
-      ofx.bal_amt = BigDecimal.new("0.0")
+      ofx.bal_amt = 0
       ofx.dtasof = max_date
     end
     

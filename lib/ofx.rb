@@ -38,6 +38,10 @@ module OFX
       yield self
     end
 
+    def bal_amt=(amt)
+      @bal_amt = BigDecimal.new(amt)
+    end
+
     def transaction(&block)
       transaction = OFX::Transaction.new
       yield transaction
