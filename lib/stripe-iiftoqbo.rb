@@ -94,7 +94,7 @@ module StripeIIFToQBO
       @ofx_entries.each do |ofx_entry|
         rows.push([ ofx_entry[:date].strftime("%m/%d/%Y"), ofx_entry[:name], ofx_entry[:accnt], "#{ofx_entry[:trnstype]} #{ofx_entry[:memo]}", ofx_entry[:amount].to_s('F') ].to_csv)
       end
-      return rows.join("\n")
+      return rows.join
     end
     
     def to_qbo
