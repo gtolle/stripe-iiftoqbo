@@ -75,3 +75,8 @@ Run the app again with ```-p payments.csv```.
 
 If you want to inspect your .iif file in CSV format (using Excel, for example), give the '-c' flag. It'll dump CSV instead of QBO.
 
+## License
+
+New MIT License - Copyright (c) 2014, Gilman Tolle
+
+See LICENSE for details
