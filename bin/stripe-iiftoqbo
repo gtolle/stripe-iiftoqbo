@@ -66,47 +66,47 @@ IIF(iif_file) do |iif|
   ofx_entries = []
 
   iif.transactions.each do |transaction|
-    transaction[:entries].each do |iif_entry|
+    transaction.entries.each do |iif_entry|
       should_print = true
       
       ofx_entry = {}
 
-      ofx_entry[:date] = iif_entry[:date]
-      ofx_entry[:fitid] = iif_entry[:memo]
-      ofx_entry[:accnt] = iif_entry[:accnt]
-      ofx_entry[:trnstype] = iif_entry[:trnstype]
-      ofx_entry[:memo] = iif_entry[:memo]
+      ofx_entry[:date] = iif_entry.date
+      ofx_entry[:fitid] = iif_entry.memo
+      ofx_entry[:accnt] = iif_entry.accnt
+      ofx_entry[:trnstype] = iif_entry.trnstype
+      ofx_entry[:memo] = iif_entry.memo
 
-      case iif_entry[:accnt]
+      case iif_entry.accnt
 
       when "Third-party Account"
-        ofx_entry[:amount] = -iif_entry[:amount]
-        ofx_entry[:name] = iif_entry[:trnstype].gsub(/PAYOUT \((.*?)\)/, '\1').split(/(\W)/).map(&:capitalize).join
+        ofx_entry[:amount] = -iif_entry.amount
+        ofx_entry[:name] = iif_entry.trnstype.gsub(/PAYOUT \((.*?)\)/, '\1').split(/(\W)/).map(&:capitalize).join
       when "Stripe Payment Processing Fees"
-        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Stripe"
       when "Checking Account"
-        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Transfer to #{iif_entry[:accnt]}"
       when "Stripe Sales"
-        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:amount] = -iif_entry.amount
         
         if iif_entry[:memo] =~ /Stripe Connect fee/
           ofx_entry[:name] = "Stripe Connect Charge"
         elsif iif_entry[:memo] =~ /Charge/
           ofx_entry[:name] = "Credit Card Charge"
         else
-          ofx_entry[:name] = iif_entry[:accnt]
+          ofx_entry[:name] = iif_entry.accnt
         end
 
         if charges.size > 0
           ofx_entry[:memo] =~ /Charge ID: (.*)/
           charge_id = $1
-          ofx_entry[:memo] = "#{charges[charge_id]} #{iif_entry[:memo]}"
+          ofx_entry[:memo] = "#{charges[charge_id]} #{iif_entry.memo}"
         end
 
       when "Stripe Returns"
-        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Credit Card Refund"
       when "Stripe Account"
         should_print = false

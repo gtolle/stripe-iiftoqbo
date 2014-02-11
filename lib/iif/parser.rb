@@ -1,3 +1,8 @@
+require 'bigdecimal'
+
+require_relative 'transaction'
+require_relative 'entry'
+
 module IIF
   class Parser
     attr_accessor :definitions
@@ -39,20 +44,21 @@ module IIF
     def parse_definition(fields)
       key = fields[0][1..-1]
       values = fields[1..-1]
-      @definitions[key] = values.map { |v| v.downcase.to_sym }
+      @definitions[key] = values.map { |v| v.downcase }
     end
 
     def parse_data(fields)
       definition = @definitions[fields[0]]
 
-      entry = { :type => fields[0] }
-
+      entry = Entry.new
+      entry.type = fields[0]
+      
       fields[1..-1].each_with_index do |field, idx|
-        entry[definition[idx]] = field
+        entry.send(definition[idx] + "=", field)
       end
 
-      entry[:amount] = BigDecimal.new(entry[:amount]) if entry[:amount]
-      entry[:date] = DateTime.strptime(entry[:date], "%m/%d/%Y") if entry[:date]
+      entry.amount = BigDecimal.new(entry.amount) if entry.amount
+      entry.date = Date.strptime(entry.date, "%m/%d/%Y") if entry.date
 
       @entries.push(entry)
     end
@@ -66,7 +72,7 @@ module IIF
         case entry[:type]
 
         when "TRNS"
-          transaction = { :entries => [] }
+          transaction = Transaction.new
           in_transaction = true
           
         when "ENDTRNS"
@@ -75,7 +81,7 @@ module IIF
 
         end
 
-        transaction[:entries].push(entry) if in_transaction
+        transaction.entries.push(entry) if in_transaction
       end
 
     end
