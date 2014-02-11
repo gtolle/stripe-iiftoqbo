@@ -4,7 +4,7 @@ Does your company use Stripe to charge credit cards?
 
 Does your company use QuickBooks Online for accounting?
 
-Did you export your full transaction history from Stripe as an IIF file?
+Did you export your full transaction history from Stripe as an .IIF file?
 
 Did you hope to import that transaction history into QuickBooks Online to do your taxes?
 
