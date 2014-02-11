@@ -1,8 +1,12 @@
 ## Stripe IIF to QuickBooks Online QBO File Translator
 
-Do you use QuickBooks Online?
+Does your company use Stripe to charge credit cards (and pay vendors)?
 
-Did you export your transaction history from Stripe, hoping to import it into QuickBooks Online to do your taxes?
+Does your company use QuickBooks Online for accounting?
+
+Did you export your full transaction history from Stripe as an IIF file?
+
+Did you hope to import that transaction history into QuickBooks Online to do your taxes?
 
 Did you realize that QBO doesn't support importing data from .IIF files, which is what Stripe gave you?
 
