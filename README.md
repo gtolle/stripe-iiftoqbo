@@ -36,7 +36,7 @@ First, make sure you have an IIF file.
 	SPL		GENERAL JOURNAL	01/23/2014	Stripe Payment Processing Fees	0.25	Fees for transfer ID: tr_3MCmCnHFyYXFB5
 	ENDTRNS
 
-Pick a name for your company (e.g. MyCompanyName). It's going to into the QBO file.
+Pick a name for your company (e.g. MyCompanyName). It's going to be saved into the QBO file.
 
 Then, run the app:
 
