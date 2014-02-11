@@ -1,0 +1,165 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'bigdecimal'
+require 'csv'
+require 'pp'
+
+require 'iif'
+require 'ofx'
+
+account_id = nil
+iif_file = nil
+dump_csv = false
+payments_file = nil
+
+optparser = OptionParser.new do |opts|
+  executable_name = File.split($0)[1]
+  opts.banner = <<-EOS
+Stripe-iiftoqbo converts your list of transactions exported by Stripe
+(in .IIF format) into a .QBO file suitable for importing into
+QuickBooks Online.
+
+You need to provide a name for your account (anything you want, use
+the name from your Stripe account).
+
+You also need to provide the IIF file. :)
+
+If you want to see a more readable CSV version of the output, give the
+-c flag.
+
+If you want your QBO 'memo' field augmented with the actual
+description of the transaction, then go to your Payments page and
+export your transaction list CSV. Then specify that filename with -p.
+
+Usage: #{executable_name} [-p PAYMENTS_CSV_FILE] [-c] ACCOUNT_NAME IIF_FILE 
+EOS
+  
+  opts.on('-p', '--payments [PAYMENTS_CSV_FILE]', "Merge payment descriptions from this Stripe Payments CSV export file") do |filename|
+    payments_file = filename
+  end
+
+  opts.on('-c', '--csv', "Output CSV instead of OFX, for debugging and analysis") do 
+    dump_csv = true
+  end
+end
+
+optparser.parse!
+
+if ARGV.length < 2
+  puts optparser.banner
+  exit(-1)
+end
+
+account_id = ARGV[0]
+iif_file = ARGV[1]
+
+charges = {}
+
+if payments_file
+  CSV.foreach(payments_file, :headers => true) do |row|
+    charges[row["id"]] = row["Description"] || ""
+  end
+end
+
+IIF(iif_file) do |iif|
+  ofx_entries = []
+
+  iif.transactions.each do |transaction|
+    transaction[:entries].each do |iif_entry|
+      should_print = true
+      
+      ofx_entry = {}
+
+      ofx_entry[:date] = iif_entry[:date]
+      ofx_entry[:fitid] = iif_entry[:memo]
+      ofx_entry[:accnt] = iif_entry[:accnt]
+      ofx_entry[:trnstype] = iif_entry[:trnstype]
+      ofx_entry[:memo] = iif_entry[:memo]
+
+      case iif_entry[:accnt]
+
+      when "Third-party Account"
+        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:name] = iif_entry[:trnstype].gsub(/PAYOUT \((.*?)\)/, '\1').split(/(\W)/).map(&:capitalize).join
+      when "Stripe Payment Processing Fees"
+        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:name] = "Stripe"
+      when "Checking Account"
+        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:name] = "Transfer to #{iif_entry[:accnt]}"
+      when "Stripe Sales"
+        ofx_entry[:amount] = -iif_entry[:amount]
+        
+        if iif_entry[:memo] =~ /Stripe Connect fee/
+          ofx_entry[:name] = "Stripe Connect Charge"
+        elsif iif_entry[:memo] =~ /Charge/
+          ofx_entry[:name] = "Credit Card Charge"
+        else
+          ofx_entry[:name] = iif_entry[:accnt]
+        end
+
+        if charges.size > 0
+          ofx_entry[:memo] =~ /Charge ID: (.*)/
+          charge_id = $1
+          ofx_entry[:memo] = "#{charges[charge_id]} #{iif_entry[:memo]}"
+        end
+
+      when "Stripe Returns"
+        ofx_entry[:amount] = -iif_entry[:amount]
+        ofx_entry[:name] = "Credit Card Refund"
+      when "Stripe Account"
+        should_print = false
+      end
+
+      if should_print
+        ofx_entries.push( ofx_entry )
+      end
+    end
+  end
+
+  if dump_csv
+
+    puts ["Date", "Name", "Account", "Memo", "Amount"].to_csv
+    ofx_entries.each do |ofx_entry|
+      puts [ ofx_entry[:date].strftime("%m/%d/%Y"), ofx_entry[:name], ofx_entry[:accnt], "#{ofx_entry[:trnstype]} #{ofx_entry[:memo]}", ofx_entry[:amount].to_s('F') ].to_csv
+    end
+
+  else
+
+    min_date = nil
+    max_date = nil
+
+    ofx_entries.each do |e|
+      if e[:date]
+        min_date = e[:date] if min_date.nil? or e[:date] < min_date
+        max_date = e[:date] if max_date.nil? or e[:date] > max_date
+      end
+    end
+    
+    ofx_builder = OFX::Builder.new do |ofx|
+      ofx.fi_org = "Stripe"
+      ofx.fi_fid = "0"
+      ofx.bank_id = "123456789"
+      ofx.acct_id = account_id
+      ofx.acct_type = "CHECKING"
+      ofx.dtstart = min_date
+      ofx.dtend = max_date
+      ofx.bal_amt = BigDecimal.new("0.0")
+      ofx.dtasof = max_date
+    end
+    
+    ofx_entries.each do |ofx_entry|
+      ofx_builder.transaction do |ofx_tr|
+        ofx_tr.dtposted = ofx_entry[:date]
+        ofx_tr.trnamt = ofx_entry[:amount]
+        ofx_tr.fitid = ofx_entry[:fitid]
+        ofx_tr.name = ofx_entry[:name]
+        ofx_tr.memo = ofx_entry[:memo]
+      end
+    end
+    
+    puts ofx_builder.to_ofx
+  end
+end
+
