@@ -1,6 +1,6 @@
 ## Stripe IIF to QuickBooks Online QBO File Translator
 
-Does your company use Stripe to charge credit cards (and pay vendors)?
+Does your company use Stripe to charge credit cards?
 
 Does your company use QuickBooks Online for accounting?
 
