@@ -19,6 +19,7 @@ It's pretty hacky, and I've only tested it for my use case. My IIF file had:
 * Payouts to Third Parties
 * Stripe Connect Fees Collected
 * Stripe Connect Fees Refunded
+* … and Stripe Transaction Fees, of course :)
 
 But now our 2013 taxes are done! 
 
