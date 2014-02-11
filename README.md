@@ -44,8 +44,24 @@ Then, run the app:
 
 You'll get a nice .QBO file with all of your transactions on stdout.
 
-Now, import it into QuickBooks Online.
+Now, go to QuickBooks Online. Go to the 'gear' menu and hit 'Chart of Accounts'. Create a new 'Bank' > 'Checking' account and call it 'Stripe'.
 
+Now go to the Transactions > Banking page. Hit the dropdown arrow next to Update and choose 'File Upload'.
+
+Upload your new .QBO file. You should see the company name you specified, and a date range from the IIF file. Choose your 'Stripe' account from the QuickBooks Online dropdown.
+
+You should see a line item for each:  
+
+* Credit Card Charge you collected
+* Stripe Fee you paid on that charge
+* Transfer to your checking account
+* Transfer to a third-party using Stripe Payounts
+* Stripe Fee you paid on that transfer
+* Stripe Connect Fee you collected
+* Credit Card Charge that was refunded
+* Refund of Stripe Fee for that charge	
+
+Categorize and accept each transaction. Now you can see how much you made, how much you paid to Stripe, and how much you paid to your vendors.		
 ## Extras
 
 If you want to merge descriptions from a 'payments' file (-p) into the 'memo' field of your QBO, go to the Stripe Payments page and Export them as CSV. It'll look like this:
