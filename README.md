@@ -4,7 +4,7 @@ Does your company use Stripe to charge credit cards?
 
 Does your company use QuickBooks Online for accounting?
 
-Did you export your full transaction history from Stripe as an IIF file?
+Did you export your full transaction history from Stripe as an .IIF file?
 
 Did you hope to import that transaction history into QuickBooks Online to do your taxes?
 
@@ -88,7 +88,7 @@ If you want to merge the description for each payment into the 'memo' field of y
 
 Then, run the tool again with ```-p payments.csv```. For each charge in the IIF, if there's a matching Charge ID in the payments file, the tool will merge it into the QBO memo.
 
-If you want to inspect your .iif file in CSV format (using Excel, for example), give the '-c' flag. It'll dump out CSV instead of QBO.
+If you want to inspect the transactions from your .IIF file in CSV format (using Excel, for example), give the '-c' flag. It'll dump CSV instead of QBO.
 
 ## License
 
