@@ -59,13 +59,13 @@ module StripeIIFToQBO
         ofx_entry[:name] = "Stripe"
       when "Checking Account"
         ofx_entry[:amount] = -iif_entry.amount
-        ofx_entry[:name] = "Transfer to #{iif_entry[:accnt]}"
+        ofx_entry[:name] = "Transfer to #{iif_entry.accnt}"
       when "Stripe Sales"
         ofx_entry[:amount] = -iif_entry.amount
         
-        if iif_entry[:memo] =~ /Stripe Connect fee/
+        if iif_entry.memo =~ /Stripe Connect fee/
           ofx_entry[:name] = "Stripe Connect Charge"
-        elsif iif_entry[:memo] =~ /Charge/
+        elsif iif_entry.memo =~ /Charge/
           ofx_entry[:name] = "Credit Card Charge"
         else
           ofx_entry[:name] = iif_entry.accnt

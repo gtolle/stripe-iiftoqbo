@@ -69,7 +69,7 @@ module IIF
 
       @entries.each do |entry|
 
-        case entry[:type]
+        case entry.type
 
         when "TRNS"
           transaction = Transaction.new
