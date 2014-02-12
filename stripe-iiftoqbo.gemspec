@@ -13,6 +13,6 @@ Gem::Specification.new do |s|
 
   s.executables << 'stripe-iiftoqbo'
 
-  s.add_runtime_dependency 'bigdecimal', '~> 0'
-  s.add_runtime_dependency 'nokogiri', '~> 0'
+  s.add_runtime_dependency 'bigdecimal', '~> 1.2'
+  s.add_runtime_dependency 'nokogiri', '~> 1.6'
 end
