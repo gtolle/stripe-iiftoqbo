@@ -8,6 +8,7 @@ module StripeIIFToQBO
       @account_id = options[:account_id] if options[:account_id]
       @iif_file = options[:iif_file] if options[:iif_file]
       @payments_file = options[:payments_file] if options[:payments_file]
+      @server_time = options[:server_time] || Date.new
 
       load_payments_file(@payments_file)
       load_iif_file(@iif_file)
@@ -109,6 +110,7 @@ module StripeIIFToQBO
       end
       
       ofx_builder = OFX::Builder.new do |ofx|
+        ofx.dtserver = @server_time
         ofx.fi_org = "Stripe"
         ofx.fi_fid = "0"
         ofx.bank_id = "123456789"

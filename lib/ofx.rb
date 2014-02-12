@@ -34,7 +34,7 @@ module OFX
                   [ "NEWFILEUID", "NONE" ]
                  ]
       @transactions = []
-      self.dtserver = Time.now
+      self.dtserver = Date.new
       if block_given?
         yield self
       end

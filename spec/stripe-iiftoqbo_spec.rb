@@ -18,13 +18,13 @@ Date,Name,Account,Memo,Amount
 EOS
 
   it "should create an empty QBO file" do
-    iiftoqbo = StripeIIFToQBO::Converter.new
+    iiftoqbo = StripeIIFToQBO::Converter.new( :server_time => Date.new(2014,2,11) )
     qbo = iiftoqbo.to_qbo
     expect( qbo ).to eq(empty_qbo)
   end
 
   it "should create an empty CSV file" do
-    iiftoqbo = StripeIIFToQBO::Converter.new
+    iiftoqbo = StripeIIFToQBO::Converter.new( :server_time => Date.new(2014,2,11) )
     csv = iiftoqbo.to_csv
     expect( csv ).to eq(empty_csv)
   end

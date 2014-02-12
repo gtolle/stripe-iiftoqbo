@@ -42,7 +42,9 @@ NEWFILEUID:NONE
 EOS
 
   it "should generate empty OFX files" do
-    ofx_builder = OFX::Builder.new
+    ofx_builder = OFX::Builder.new do |ofx|
+      ofx.dtserver = Date.new(2014,2,11)
+    end
     
     ofx = ofx_builder.to_ofx
     expect( ofx ).to eq(empty_ofx)
@@ -50,6 +52,7 @@ EOS
 
   it "should generate OFX files with bank info but no transactions" do
     ofx_builder = OFX::Builder.new do |ofx|
+      ofx.dtserver = Date.new(2014,2,11)
       ofx.fi_org = "Stripe"
       ofx.fi_fid = "0"
       ofx.bank_id = "123456789"
@@ -68,6 +71,7 @@ EOS
 
   it "should generate OFX files with transactions" do
     ofx_builder = OFX::Builder.new do |ofx|
+      ofx.dtserver = Date.new(2014,2,11)
       ofx.fi_org = "Stripe"
       ofx.fi_fid = "0"
       ofx.bank_id = "123456789"
