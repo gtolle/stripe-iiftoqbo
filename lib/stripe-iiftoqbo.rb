@@ -8,7 +8,7 @@ module StripeIIFToQBO
       @account_id = options[:account_id] if options[:account_id]
       @iif_file = options[:iif_file] if options[:iif_file]
       @payments_file = options[:payments_file] if options[:payments_file]
-      @server_time = options[:server_time] || Date.new
+      @server_time = options[:server_time] || Date.today
 
       load_payments_file(@payments_file)
       load_iif_file(@iif_file)
