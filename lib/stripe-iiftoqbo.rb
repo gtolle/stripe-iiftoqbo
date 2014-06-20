@@ -18,7 +18,7 @@ module StripeIIFToQBO
       @payments = {}
       
       if payments_file
-        CSV.foreach(payments_file, :headers => true) do |row|
+        CSV.foreach(payments_file, :headers => true, :encoding => 'windows-1251:utf-8') do |row|
           @payments[row["id"]] = row["Description"] || ""
         end
       end
@@ -85,7 +85,7 @@ module StripeIIFToQBO
       when "Stripe Account"
         return nil
       end
-      
+
       return ofx_entry
     end
 
