@@ -49,16 +49,16 @@ module StripeIIFToQBO
       ofx_entry[:accnt] = iif_entry.accnt
       ofx_entry[:trnstype] = iif_entry.trnstype
       ofx_entry[:memo] = iif_entry.memo
-      
+
       case iif_entry.accnt
-        
-      when "Third-party Account"
+
+      when "Stripe Third-party Account"
         ofx_entry[:amount] = -iif_entry.amount
-        ofx_entry[:name] = iif_entry.trnstype.gsub(/PAYOUT \((.*?)\)/, '\1').split(/(\W)/).map(&:capitalize).join
+        ofx_entry[:name] = iif_entry.name # iif_entry.trnstype.gsub(/PAYOUT \((.*?)\)/, '\1').split(/(\W)/).map(&:capitalize).join
       when "Stripe Payment Processing Fees"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Stripe"
-      when "Checking Account"
+      when "Stripe Checking Account"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Transfer to #{iif_entry.accnt}"
       when "Stripe Sales"
