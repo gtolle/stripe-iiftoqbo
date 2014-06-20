@@ -68,10 +68,14 @@ module IIF
       in_transaction = false
 
       @entries.each do |entry|
-
+        
         case entry.type
 
         when "TRNS"
+          if in_transaction
+            @transactions.push(transaction)
+            in_transaction = false
+          end
           transaction = Transaction.new
           in_transaction = true
           
@@ -83,7 +87,6 @@ module IIF
 
         transaction.entries.push(entry) if in_transaction
       end
-
     end
   end
 end
