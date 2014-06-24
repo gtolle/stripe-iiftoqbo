@@ -15,30 +15,23 @@ payments_file = nil
 optparser = OptionParser.new do |opts|
   executable_name = File.split($0)[1]
   opts.banner = <<-EOS
-Stripe-iiftoqbo converts your list of transactions exported by Stripe
-(in .IIF format) into a .QBO file suitable for importing into
-QuickBooks Online.
-
-You need to provide a name for your account (anything you want, use
-the name from your Stripe account).
-
-You also need to provide the IIF file. :)
-
-If you want to see a more readable CSV version of the output, give the
--c flag.
-
-If you want your QBO 'memo' field augmented with the actual
-description of the transaction, then go to your Payments page and
-export your transaction list CSV. Then specify that filename with -p.
 
 Usage: #{executable_name} [-p PAYMENTS_CSV_FILE] [-c] ACCOUNT_NAME IIF_FILE 
+
+Stripe-iiftoqbo converts an .iif file of your live transaction data
+exported from Stripe into a .qbo file that can be imported into
+QuickBooks Online.
+
+ACCOUNT_NAME : the name of your Stripe account to be included into your .qbo file (required)
+IIF_FILE     : the .iif file to convert (required)
+
 EOS
   
-  opts.on('-p', '--payments [PAYMENTS_CSV_FILE]', "Merge payment descriptions from this Stripe Payments CSV export file") do |filename|
+  opts.on('-p', '--payments [PAYMENTS_CSV_FILE]', "Populate .qbo transaction memo using memo field from a Stripe Payments CSV export") do |filename|
     payments_file = filename
   end
 
-  opts.on('-c', '--csv', "Output CSV instead of OFX, for debugging and analysis") do 
+  opts.on('-c', '--csv', "Output CSV of transactions instead of QBO, for debugging and analysis") do 
     dump_csv = true
   end
 end
@@ -46,7 +39,7 @@ end
 optparser.parse!
 
 if ARGV.length < 2
-  puts optparser.banner
+  puts optparser
   exit(-1)
 end
 
