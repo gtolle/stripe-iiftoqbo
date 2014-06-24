@@ -54,7 +54,7 @@ module StripeIIFToQBO
 
       when "Stripe Third-party Account"
         ofx_entry[:amount] = -iif_entry.amount
-        ofx_entry[:name] = iif_entry.name # iif_entry.trnstype.gsub(/PAYOUT \((.*?)\)/, '\1').split(/(\W)/).map(&:capitalize).join
+        ofx_entry[:name] = iif_entry.name
       when "Stripe Payment Processing Fees"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Stripe"
