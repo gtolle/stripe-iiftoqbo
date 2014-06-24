@@ -1,12 +1,12 @@
 Date,Name,Account,Memo,Amount
-01/23/2014,Test User,Third-party Account,PAYOUT (TEST USER) Transfer from Stripe: tr_3MCmCnHFyYXFB5,-135.15
-01/23/2014,Stripe,Stripe Payment Processing Fees,GENERAL JOURNAL Fees for transfer ID: tr_3MCmCnHFyYXFB5,-0.25
-01/23/2014,Transfer to Checking Account,Checking Account,DEPOSIT Transfer from Stripe: tr_3MCmQsVsNuIX7J,-85.0
+01/23/2014,Nicole Chiu-Wang,Stripe Third-party Account,CHECK Transfer from Stripe: tr_3MCmCnHFyYXFB5,-135.15
+01/23/2014,Stripe,Stripe Payment Processing Fees,GENERAL JOURNAL Fees for Transfer from Stripe: tr_3MCmCnHFyYXFB5,-0.25
+01/23/2014,Transfer to Stripe Checking Account,Stripe Checking Account,DEPOSIT Transfer from Stripe: tr_3MCmQsVsNuIX7J,-85.0
 01/22/2014,Credit Card Charge,Stripe Sales,GENERAL JOURNAL Charge ID: ch_3M1PskZ2rglde3,249.0
 01/22/2014,Stripe,Stripe Payment Processing Fees,GENERAL JOURNAL Fees for charge ID: ch_3M1PskZ2rglde3,-7.52
 07/10/2013,Credit Card Refund,Stripe Returns,GENERAL JOURNAL Refund of charge ch_2AaUvVOXTJxqgU,-60.0
 07/10/2013,Stripe,Stripe Payment Processing Fees,GENERAL JOURNAL Refund of fees for ch_2AaUvVOXTJxqgU,2.04
 07/10/2013,Credit Card Charge,Stripe Sales,GENERAL JOURNAL Charge ID: ch_2AaUVt4SQVF5mE,60.0
 07/10/2013,Stripe,Stripe Payment Processing Fees,GENERAL JOURNAL Fees for charge ID: ch_2AaUVt4SQVF5mE,-2.04
-12/10/2012,Transfer to Checking Account,Checking Account,DEPOSIT Transfer from Stripe: ach_0qt6m5dlIL2XMq,-15.0
+12/10/2012,Transfer to Stripe Checking Account,Stripe Checking Account,DEPOSIT Transfer from Stripe: ach_0qt6m5dlIL2XMq,-15.0
 12/03/2012,Stripe Connect Charge,Stripe Sales,GENERAL JOURNAL Stripe Connect fee for transaction ID: ch_0qbUpzmgBi6WVJ,15.0
