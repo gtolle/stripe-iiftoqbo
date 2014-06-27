@@ -14,8 +14,8 @@ Then this tool might be helpful.
 
 Stripe-iiftoqbo takes an IIF file and produces a QBO file that you can import into QuickBooks Online.
 
-It's pretty hacky, and I've only tested it for my use case. My IIF file had:
-	
+It's been tested with:
+
 * Credit Card Payments
 * Subscription Credit Card Payments
 * Credit Card Refunds
@@ -23,11 +23,9 @@ It's pretty hacky, and I've only tested it for my use case. My IIF file had:
 * Payouts to Third Parties
 * Stripe Connect Fees Collected
 * Stripe Connect Fees Refunded
-* … and Stripe Transaction Fees, of course :)
+* Stripe Transaction Fees
 
-But now our 2013 taxes are done! 
-
-I used the Stripe export to come up with our top-line revenue (from credit card payments), and our cost of goods sold (since we're a marketplace, that's payouts to vendors and stripe fees). And all the transfers to our checking account tallied with transfers into our checking account (as seen by our bank).
+You can use the Stripe data to come up with top-line revenue numbers (from credit card payments) and cost of goods sold if you're a marketplace with payouts. You can also double-check that all the transfers from Strip tally with transfers into your bank account.
 
 ## Usage
 
@@ -92,6 +90,6 @@ If you want to inspect the transactions from your .IIF file in CSV format (using
 
 ## License
 
-New MIT License - Copyright (c) 2014, Gilman Tolle
+New MIT License - Copyright (c) 2014 Gilman Tolle
 
 See LICENSE for details
