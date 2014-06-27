@@ -25,7 +25,7 @@ It's been tested with:
 * Stripe Connect Fees Refunded
 * Stripe Transaction Fees
 
-You can use the Stripe data to come up with top-line revenue numbers (from credit card payments) and cost of goods sold if you're a marketplace with payouts. You can also double-check that all the transfers from Strip tally with transfers into your bank account.
+You can use the Stripe data to come up with top-line revenue numbers from credit card payments and cost of goods sold if you're a marketplace with payouts. You can also double-check that all the transfers from Stripe sync up with transfers into your bank account.
 
 ## Usage
 
