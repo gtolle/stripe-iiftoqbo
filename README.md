@@ -19,7 +19,7 @@ It's been tested with:
 * Credit Card Payments
 * Subscription Credit Card Payments
 * Credit Card Refunds
-* Transfers to our Checking Account
+* Transfers to a Company Bank Account
 * Payouts to Third Parties
 * Stripe Connect Fees Collected
 * Stripe Connect Fees Refunded
