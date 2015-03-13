@@ -11,12 +11,13 @@ account_id = nil
 iif_file = nil
 dump_csv = false
 payments_file = nil
+transfers_file = nil
 
 optparser = OptionParser.new do |opts|
   executable_name = File.split($0)[1]
   opts.banner = <<-EOS
 
-Usage: #{executable_name} [-p PAYMENTS_CSV_FILE] [-c] ACCOUNT_NAME IIF_FILE 
+Usage: #{executable_name} [-p PAYMENTS_CSV_FILE] [-t TRANSFERS_CSV_FILE] [-c] ACCOUNT_NAME IIF_FILE 
 
 Stripe-iiftoqbo converts an .iif file of your live transaction data
 exported from Stripe into a .qbo file that can be imported into
@@ -27,8 +28,12 @@ IIF_FILE     : the .iif file to convert (required)
 
 EOS
   
-  opts.on('-p', '--payments [PAYMENTS_CSV_FILE]', "Populate .qbo transaction memo using memo field from a Stripe Payments CSV export") do |filename|
+  opts.on('-p', '--payments [PAYMENTS_CSV_FILE]', "Populate .qbo charge memo using memo field from a Stripe Payments CSV export") do |filename|
     payments_file = filename
+  end
+
+  opts.on('-t', '--transfers [TRANSFERS_CSV_FILE]', "Populate .qbo transfer memo using memo field from a Stripe Transfers CSV export") do |filename|
+    transfers_file = filename
   end
 
   opts.on('-c', '--csv', "Output CSV of transactions instead of QBO, for debugging and analysis") do 
@@ -45,7 +50,8 @@ end
 
 iiftoqbo = StripeIIFToQBO::Converter.new( :account_id => ARGV[0],
                                           :iif_file => ARGV[1],
-                                          :payments_file => payments_file )
+                                          :payments_file => payments_file,
+                                          :transfers_file => transfers_file )
 if dump_csv
   puts iiftoqbo.to_csv
 else

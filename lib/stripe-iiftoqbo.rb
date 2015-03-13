@@ -8,9 +8,11 @@ module StripeIIFToQBO
       @account_id = options[:account_id] if options[:account_id]
       @iif_file = options[:iif_file] if options[:iif_file]
       @payments_file = options[:payments_file] if options[:payments_file]
+      @transfers_file = options[:transfers_file] if options[:transfers_file]
       @server_time = options[:server_time] || Date.today
 
       load_payments_file(@payments_file)
+      load_transfers_file(@transfers_file)
       load_iif_file(@iif_file)
     end
 
@@ -20,6 +22,16 @@ module StripeIIFToQBO
       if payments_file
         CSV.foreach(payments_file, :headers => true, :encoding => 'windows-1251:utf-8') do |row|
           @payments[row["id"]] = row["Description"] || ""
+        end
+      end
+    end
+
+    def load_transfers_file(transfers_file)
+      @transfers = {}
+      
+      if transfers_file
+        CSV.foreach(transfers_file, :headers => true, :encoding => 'windows-1251:utf-8') do |row|
+          @transfers[row["ID"]] = row["Description"] || ""
         end
       end
     end
@@ -55,6 +67,14 @@ module StripeIIFToQBO
       when "Stripe Third-party Account"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = iif_entry.name
+
+        ofx_entry[:memo] =~ /Transfer from Stripe: (\S+)/
+        transfer_id = $1
+
+        if @transfers[transfer_id]
+          ofx_entry[:memo] = "#{@transfers[transfer_id]} #{iif_entry.memo}"
+        end
+
       when "Stripe Payment Processing Fees"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Stripe"
