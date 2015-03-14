@@ -6,24 +6,25 @@ SPL		CHECK	01/23/2014	Stripe Third-party Account	135.15	Transfer from Stripe: tr
 ENDTRNS
 TRNS		GENERAL JOURNAL	01/23/2014	Stripe Account	-0.25	Fees for Transfer from Stripe: tr_3MCmCnHFyYXFB5	
 SPL		GENERAL JOURNAL	01/23/2014	Stripe Payment Processing Fees	0.25	Fees for Transfer from Stripe: tr_3MCmCnHFyYXFB5	
-TRNS		DEPOSIT	01/23/2014	Stripe Checking Account	85.0	Transfer from Stripe: tr_3MCmQsVsNuIX7J	
-SPL		DEPOSIT	01/23/2014	Stripe Account	-85.0	Transfer from Stripe: tr_3MCmQsVsNuIX7J	
 ENDTRNS
-TRNS		GENERAL JOURNAL	01/22/2014	Stripe Sales	-249.0	Charge ID: ch_3M1PskZ2rglde3	
+TRNS		DEPOSIT	01/23/2014	Stripe Checking Account	85.00	Transfer from Stripe: tr_3MCmQsVsNuIX7J	
+SPL		DEPOSIT	01/23/2014	Stripe Account	-85.00	Transfer from Stripe: tr_3MCmQsVsNuIX7J	
+ENDTRNS
+TRNS		GENERAL JOURNAL	01/22/2014	Stripe Sales	-249.00	Charge ID: ch_3M1PskZ2rglde3 | Description: Styling session between stylist Gloria McGee and client Emily Crozier	
 SPL		GENERAL JOURNAL	01/22/2014	Stripe Payment Processing Fees	7.52	Fees for charge ID: ch_3M1PskZ2rglde3	
 SPL		GENERAL JOURNAL	01/22/2014	Stripe Account	241.48	Net for charge ID: ch_3M1PskZ2rglde3	
 ENDTRNS
-TRNS		GENERAL JOURNAL	07/10/2013	Stripe Returns	60.0	Refund of charge ch_2AaUvVOXTJxqgU
-SPL		GENERAL JOURNAL	07/10/2013	Stripe Account	-57.96	Refund for refunded charge ID: ch_2AaUvVOXTJxqgU
-SPL		GENERAL JOURNAL	07/10/2013	Stripe Payment Processing Fees	-2.04	Refund of fees for ch_2AaUvVOXTJxqgU
+TRNS		GENERAL JOURNAL	07/10/2013	Stripe Returns	60.00	Refund of charge ch_2AaUvVOXTJxqgU	
+SPL		GENERAL JOURNAL	07/10/2013	Stripe Account	-57.96	Refund for refunded charge ID: ch_2AaUvVOXTJxqgU	
+SPL		GENERAL JOURNAL	07/10/2013	Stripe Payment Processing Fees	-2.04	Refund of fees for ch_2AaUvVOXTJxqgU	
 ENDTRNS
-TRNS		GENERAL JOURNAL	07/10/2013	Stripe Sales	-60.0	Charge ID: ch_2AaUVt4SQVF5mE
-SPL		GENERAL JOURNAL	07/10/2013	Stripe Payment Processing Fees	2.04	Fees for charge ID: ch_2AaUVt4SQVF5mE
-SPL		GENERAL JOURNAL	07/10/2013	Stripe Account	57.96	Net for charge ID: ch_2AaUVt4SQVF5mE
+TRNS		GENERAL JOURNAL	07/10/2013	Stripe Sales	-60.00	Charge ID: ch_2AaUVt4SQVF5mE | Description: Styling session between stylist Ellen Kyle and client Stephanie Ann	
+SPL		GENERAL JOURNAL	07/10/2013	Stripe Payment Processing Fees	2.04	Fees for charge ID: ch_2AaUVt4SQVF5mE	
+SPL		GENERAL JOURNAL	07/10/2013	Stripe Account	57.96	Net for charge ID: ch_2AaUVt4SQVF5mE	
 ENDTRNS
-TRNS		DEPOSIT	12/10/2012	Stripe Checking Account	15.0	Transfer from Stripe: ach_0qt6m5dlIL2XMq	
-SPL		DEPOSIT	12/10/2012	Stripe Account	-15.0	Transfer from Stripe: ach_0qt6m5dlIL2XMq	
+TRNS		DEPOSIT	12/10/2012	Stripe Checking Account	15.00	Transfer from Stripe: ach_0qt6m5dlIL2XMq	
+SPL		DEPOSIT	12/10/2012	Stripe Account	-15.00	Transfer from Stripe: ach_0qt6m5dlIL2XMq	
 ENDTRNS
-TRNS		GENERAL JOURNAL	12/03/2012	Stripe Sales	-15.0	Stripe Connect fee for transaction ID: ch_0qbUpzmgBi6WVJ
-SPL		GENERAL JOURNAL	12/03/2012	Stripe Account	15.0	Stripe Connect fee for transaction ID: ch_0qbUpzmgBi6WVJ
+TRNS		GENERAL JOURNAL	12/03/2012	Stripe Sales	-15.00	Stripe Connect fee for transaction ID: ch_0qbUpzmgBi6WVJ	
+SPL		GENERAL JOURNAL	12/03/2012	Stripe Account	15.00	Stripe Connect fee for transaction ID: ch_0qbUpzmgBi6WVJ	
 ENDTRNS
