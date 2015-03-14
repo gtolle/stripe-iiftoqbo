@@ -29,7 +29,7 @@ You can use the Stripe data to come up with top-line revenue numbers from credit
 
 ## Usage
 
-	Usage: stripe-iiftoqbo [-p PAYMENTS_CSV_FILE] [-c] ACCOUNT_NAME IIF_FILE 
+	Usage: stripe-iiftoqbo [-p PAYMENTS_CSV_FILE] [-t TRANSFERS_CSV_FILE] [-c] ACCOUNT_NAME IIF_FILE 
 
 ## Quickstart
 
@@ -85,6 +85,8 @@ If you want to merge the description for each payment into the 'memo' field of y
 	ch_3PimG0oAu3LRSg,Test Description To Merge,2014-02-01 02:16,249.00,0.00,usd,249.00,0.00,7.52,usd,Live,Paid,cus_292ab3c2b,test@test.com,,true,2222,Visa,1,2016,,,,,,,,US,2Xv5QDDhdKj23Z0l,,,,
 
 Then, run the tool again with ```-p payments.csv```. For each charge in the IIF, if there's a matching Charge ID in the payments file, the tool will merge it into the QBO memo.
+
+You can also export your Transfers and then merge descriptions using ```-t transfers.csv```.
 
 If you want to inspect the transactions from your .IIF file in CSV format (using Excel, for example), give the '-c' flag. It'll dump CSV instead of QBO.
 
