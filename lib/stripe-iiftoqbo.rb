@@ -78,10 +78,12 @@ module StripeIIFToQBO
       when "Stripe Payment Processing Fees"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Stripe"
+
       when "Stripe Checking Account"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Transfer to #{iif_entry.accnt}"
-      when "Stripe Sales"
+
+     when "Stripe Sales"
         ofx_entry[:amount] = -iif_entry.amount
         
         if iif_entry.memo =~ /Stripe Connect fee/
@@ -92,16 +94,25 @@ module StripeIIFToQBO
           ofx_entry[:name] = iif_entry.accnt
         end
         
-        ofx_entry[:memo] =~ /Charge ID: (.*)/
+        ofx_entry[:memo] =~ /Charge ID: (\S+)/
         charge_id = $1
-        
+
         if @payments[charge_id]
-          ofx_entry[:memo] = "#{@payments[charge_id]} #{iif_entry.memo}"
+          ofx_entry[:memo] = "#{@payments[charge_id]} Charge ID: #{charge_id}"
+          ofx_entry[:fitid] = charge_id
         end
-        
+
       when "Stripe Returns"
         ofx_entry[:amount] = -iif_entry.amount
         ofx_entry[:name] = "Credit Card Refund"
+
+        ofx_entry[:memo] =~ /Refund of charge (\S+)/
+        charge_id = $1
+
+        if @payments[charge_id]
+          ofx_entry[:memo] = "#{@payments[charge_id]} Refund of Charge ID: #{charge_id}"
+        end
+
       when "Stripe Account"
         return nil
       end
